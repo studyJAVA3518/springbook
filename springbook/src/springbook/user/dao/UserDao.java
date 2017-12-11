@@ -1,10 +1,11 @@
 package springbook.user.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import springbook.user.domain.User;
 
@@ -13,6 +14,11 @@ public class UserDao {
 	private ConnectionMaker connectionMaker;
 	private Connection c;
 	private User user;
+	
+	UserDao(){
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+		this.connectionMaker = context.getBean("connectionMaker",ConnectionMaker.class);
+	}
 	
 	UserDao(ConnectionMaker connectionMaker){
 		this.connectionMaker = connectionMaker;
